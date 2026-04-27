@@ -12,13 +12,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
+      # NPM se install karne ki jagah direct binary install karo
       - name: Install Supabase CLI
-        run: npm install -g supabase
+        run: |
+          curl -fsSL https://raw.githubusercontent.com/supabase/cli/main/install.sh | sh
+          # Supabase ko system path mein add karo taaki command mil sake
+          echo "/home/runner/.supabase" >> $GITHUB_PATH
 
       - name: Deploy Database Migrations
         run: |
